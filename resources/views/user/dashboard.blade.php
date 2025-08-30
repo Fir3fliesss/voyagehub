@@ -8,7 +8,6 @@
             <h1 class="page-title">Dashboard</h1>
         </div>
         <div class="header-actions">
-            <a href="#" class="btn btn-outline">📊 Reports</a>
             <a href="{{ route('journeys.create') }}" class="btn btn-primary">➕ New Trip</a>
         </div>
     </header>
@@ -40,13 +39,13 @@
                 <div class="stat-value">{{ $activeTrips }}</div>
             </div>
 
-            <div class="stat-card">
+            {{-- <div class="stat-card">
                 <div class="stat-header">
                     <span class="stat-title">Countries Visited</span>
                     <div class="stat-icon">🌍</div>
                 </div>
                 <div class="stat-value">{{ $countriesVisited }}</div>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Activity -->

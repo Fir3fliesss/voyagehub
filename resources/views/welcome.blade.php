@@ -381,8 +381,6 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#about">About</a></li>
             </ul>
             <div class="auth-buttons">
                 <a href="/signin" class="btn btn-outline">Sign In</a>
@@ -396,7 +394,7 @@
         <div class="container">
             <h1>Manage Business Travel with Ease</h1>
             <p>VoyageHub helps you record, track, and manage all your business trips efficiently. Save time, increase productivity, and ensure every business journey is well-organized.</p>
-            <a href="sign-up.html" class="btn btn-primary">Get Started</a>
+            <a href="/signin" class="btn btn-primary">Get Started</a>
         </div>
     </section>
 
