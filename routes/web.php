@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -30,5 +31,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/settings', [UserController::class, 'settings'])->name('settings');
     Route::post('/settings', [UserController::class, 'updateSettings'])->name('settings.update');
 });
+
+// routes/web.php
+Route::middleware(['auth', 'is_admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    // User Management
+    Route::resource('/users', App\Http\Controllers\Admin\UserController::class);
+
+    // Trip Management
+    Route::resource('/journeys', JourneyController::class);
+
+    // Report
+    // Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports');
+});
+
 
 Route::resource('users', UserController::class);
