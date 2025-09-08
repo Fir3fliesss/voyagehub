@@ -1,45 +1,56 @@
-{{-- resources/views/admin/users/edit.blade.php --}}
 @extends('layouts.admin')
 
 @section('content')
-<div class="content-area">
-    <h1>Edit User</h1>
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Edit User</h1>
+    <p class="mb-4">Edit the user details below.</p>
 
-    <form action="{{ route('users.update', $user) }}" method="POST">
-        @csrf @method('PUT')
-
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" name="name" value="{{ old('name', $user->name) }}" required>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
+    @endif
 
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" value="{{ old('email', $user->email) }}" required>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">User Details</h6>
         </div>
-
-        <div class="form-group">
-            <label>Role</label>
-            <select name="role" required>
-                <option value="client" {{ $user->role === 'client' ? 'selected' : '' }}>Client</option>
-                <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
-            </select>
+        <div class="card-body">
+            <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="nik">NIK:</label>
+                    <input type="text" class="form-control" id="nik" name="nik" value="{{ $user->nik }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role:</label>
+                    <select class="form-control" id="role" name="role" required>
+                        <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
+                        <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Cancel</a>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label>New Password (optional)</label>
-            <input type="password" name="password">
-        </div>
-
-        <div class="form-group">
-            <label>Confirm New Password</label>
-            <input type="password" name="password_confirmation">
-        </div>
-
-        <div class="form-actions">
-            <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancel</a>
-            <button type="submit" class="btn btn-primary">Update User</button>
-        </div>
-    </form>
+    </div>
 </div>
 @endsection

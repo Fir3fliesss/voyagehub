@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -164,7 +163,7 @@
             border: 1px solid var(--border);
             transition: all 0.3s ease;
         }
-        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }H
         .stat-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
         .stat-title { font-size: 0.9rem; color: #64748b; }
         .stat-icon {
@@ -198,198 +197,151 @@
         .activity-item:hover { background: #f1f5f9; }
         .activity-item:last-child { border-bottom: none; }
         .activity-icon {
-            width: 34px; height: 34px;
+            width: 38px; height: 38px;
             border-radius: 50%;
-            background: var(--secondary); /* Changed from primary to secondary for distinction */
-            color: white; display: flex; align-items: center; justify-content: center;
-            font-size: 0.85rem;
+            background: #e0f2f7;
+            color: #007bff;
+            display: flex; align-items: center; justify-content: center;
         }
-        .activity-text { font-weight: 500; margin-bottom: 0.2rem; }
-        .activity-time { font-size: 0.75rem; color: #64748b; }
-
-        /* Form Styles */
-        .form-container {
-            background-color: var(--card);
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .form-header {
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .form-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 1.4rem;
-            color: var(--foreground);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-description {
-            color: var(--muted-foreground);
-            font-size: 0.95rem;
-        }
-
-        .form-section {
-            margin-bottom: 2rem;
-        }
-
-        .section-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--foreground);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: var(--foreground);
+        .activity-details {
+            flex: 1;
             font-size: 0.9rem;
         }
+        .activity-details span {
+            font-weight: 600;
+        }
+        .activity-time {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
 
-        .form-input,
-        .form-select,
-        .form-textarea {
+        /* Forms */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .form-control {
+            width: 100%;
             padding: 0.75rem 1rem;
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            background-color: var(--input);
+            background: var(--input);
             color: var(--foreground);
             font-size: 0.9rem;
-            transition: all 0.3s ease;
+            transition: border-color 0.2s;
         }
-
-        .form-input:focus,
-        .form-select:focus,
-        .form-textarea:focus {
+        .form-control:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
         }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
         .form-actions {
             display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
+            gap: 0.75rem;
+            margin-top: 1.5rem;
         }
 
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
+        /* Table */
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .data-table th,
+        .data-table td {
+            padding: 0.9rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        .data-table th {
+            background: var(--card);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--muted-foreground);
+            text-transform: uppercase;
+        }
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .data-table tbody tr:hover {
+            background: #f1f5f9;
+        }
+        .action-buttons .btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        .pagination a,
+        .pagination span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            text-decoration: none;
             color: var(--foreground);
-            cursor: pointer;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        .pagination a:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .pagination .active span {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .pagination .disabled span {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
             }
-
             .sidebar.open {
                 transform: translateX(0);
             }
-
             .main-content {
                 margin-left: 0;
             }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
             .main-header {
-                padding: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
             }
-
-            .content-area {
-                padding: 1rem;
+            .header-actions {
+                width: 100%;
+                justify-content: flex-end;
             }
-
-            .form-container {
-                padding: 1.5rem;
-            }
-
-            .form-grid {
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
-
-            .form-actions {
-                flex-direction: column;
-            }
-
-            .btn {
-                padding: 0.75rem 1rem;
-                font-size: 0.9rem;
-                justify-content: center;
-            }
         }
 
-        @media (max-width: 480px) {
-            .page-title {
-                font-size: 1.4rem;
-            }
-
-            .form-title {
-                font-size: 1.2rem;
-            }
-
-            .section-title {
-                font-size: 1rem;
-            }
-        }
-
-        /* Overlay for mobile */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 999;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar-overlay.show {
-                display: block;
-            }
+        .alert-container {
+            padding: 1.5rem;
+            padding-bottom: 0;
         }
     </style>
     @stack('styles')
@@ -397,22 +349,53 @@
 <body>
     <div class="dashboard-container">
         @include('layouts.sidebar')
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
-        <main class="main-content">
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
 
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-            @yield('content')
-        </main>
+        <div class="main-content">
+            <div class="main-header">
+                <h1 class="page-title">@yield('title', 'Dashboard')</h1>
+
+            </div>
+
+            <div class="alert-container">
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+
+            <div class="content-area">
+                @yield('content')
+            </div>
+        </div>
     </div>
+
+    <script>
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.querySelector('.sidebar');
+
+        if (mobileMenuToggle && sidebar) {
+            mobileMenuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
+    </script>
     @stack('scripts')
 </body>
 </html>

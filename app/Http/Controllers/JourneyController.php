@@ -5,43 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Journey;
+use App\Services\DashboardService;
 
 class JourneyController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
+        $stats = DashboardService::getUserDashboardStats($user);
 
-        // Total trip user
-        $totalTrips = $user->journeys()->count();
-
-        // Total budget (anggap expenses dari field budget)
-        $totalExpenses = $user->journeys()->sum('budget');
-
-        // Trip aktif (end_date >= hari ini)
-        $activeTrips = $user->journeys()
-            ->whereDate('end_date', '>=', now())
-            ->count();
-
-        // Jumlah negara unik yang dikunjungi
-        $countriesVisited = $user->journeys()
-            ->select('destination')
-            ->distinct()
-            ->count();
-
-        // Recent activities (ambil 5 terbaru)
-        $recentActivities = $user->journeys()
-            ->latest()
-            ->take(5)
-            ->get();
-
-        return view('user.dashboard', compact(
-            'totalTrips',
-            'totalExpenses',
-            'activeTrips',
-            'countriesVisited',
-            'recentActivities'
-        ));
+        return view('user.dashboard', $stats);
     }
 
 
@@ -52,6 +25,7 @@ class JourneyController extends Controller
 
     public function store(Request $request)
     {
+        // 
         $request->validate([
             'title'       => 'required|string|max:255',
             'destination' => 'required|string|max:255',

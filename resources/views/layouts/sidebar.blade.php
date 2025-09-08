@@ -100,13 +100,37 @@
     <nav class="sidebar-nav">
         <ul>
             <li class="nav-item">
-                <a href="/dashboard" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}" data-page="home">
-                    <span class="nav-icon">🏠</span>Home
-                </a>
+                @if(Auth::user()->role == 'admin')
+                    <a href="/admin/dashboard" class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}" data-page="home">
+                        <span class="nav-icon">🏠</span>Home
+                    </a>
+                @else
+                    <a href="/dashboard" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}" data-page="home">
+                        <span class="nav-icon">🏠</span>Home
+                    </a>
+                @endif
             </li>
             <li class="nav-item">
-                <a href="/new-trip" class="nav-link {{ request()->is('new-trip') ? 'active' : '' }}" data-page="add-data">
-                    <span class="nav-icon">➕</span>Add Data
+                @if(Auth::user()->role == 'user')
+                    <a href="/new-trip" class="nav-link {{ request()->is('new-trip') ? 'active' : '' }}" data-page="add-data">
+                        <span class="nav-icon">➕</span>Add Data
+                    </a>
+                @endif
+            </li>
+            @if(Auth::user()->role == 'admin')
+            <li class="nav-item">
+                <a href="/admin/users" class="nav-link {{ request()->is('admin/users') ? 'active' : '' }}" data-page="user-management">
+                    <span class="nav-icon">👥</span>User Management
+                </a>
+            </li>
+            @endif
+            <li class="nav-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="cursor: pointer;">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                <a class="nav-link" href="#">
+                    <span class="nav-icon">➡️</span>
+                    Logout
                 </a>
             </li>
         </ul>

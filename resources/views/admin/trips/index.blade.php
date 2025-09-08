@@ -1,52 +1,58 @@
-{{-- resources/views/admin/trips/index.blade.php --}}
 @extends('layouts.admin')
 
 @section('content')
-<div class="content-area">
-    <h1>Manage Trips</h1>
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Trip Management</h1>
+    <p class="mb-4">Manage all trips in the system.</p>
 
-    @if(session('success'))
-        <div class="alert-success">{{ session('success') }}</div>
-    @endif
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Trips</h6>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('admin.trips.index') }}" method="GET" class="form-inline mb-3">
+                <div class="form-group mr-2">
+                    <label for="start_date" class="sr-only">Start Date</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request('start_date') }}">
+                </div>
+                <div class="form-group mr-2">
+                    <label for="end_date" class="sr-only">End Date</label>
+                    <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request('end_date') }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Filter</button>
+                <a href="{{ route('admin.trips.index') }}" class="btn btn-secondary ml-2">Clear Filter</a>
+            </form>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Trip Title</th>
-                <th>Destination</th>
-                <th>User</th>
-                <th>Dates</th>
-                <th>Budget</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($trips as $trip)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $trip->title }}</td>
-                    <td>{{ $trip->destination }}</td>
-                    <td>{{ $trip->user->name }}</td>
-                    <td>{{ $trip->start_date }} - {{ $trip->end_date ?? '-' }}</td>
-                    <td>{{ $trip->budget ? 'Rp '.number_format($trip->budget,0,',','.') : '-' }}</td>
-                    <td>
-                        <a href="{{ route('admin.trips.show', $trip) }}" class="btn btn-sm btn-primary">View</a>
-                        <a href="{{ route('admin.trips.edit', $trip) }}" class="btn btn-sm btn-secondary">Edit</a>
-                        <form action="{{ route('admin.trips.destroy', $trip) }}" method="POST" style="display:inline;">
-                            @csrf @method('DELETE')
-                            <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this trip?')">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr><td colspan="7">No trips found.</td></tr>
-            @endforelse
-        </tbody>
-    </table>
-
-    <div style="margin-top:16px;">
-        {{ $trips->links() }}
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($trips as $trip)
+                        <tr>
+                            <td>{{ $trip->user->name }}</td>
+                            <td>{{ $trip->date }}</td>
+                            <td>{{ $trip->location }}</td>
+                            <td>{{ $trip->description }}</td>
+                            <td>
+                                {{-- Add actions here if needed, e.g., view details, edit, delete --}}
+                                <a href="#" class="btn btn-info btn-sm">View</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {{ $trips->links() }}
+            </div>
+        </div>
     </div>
 </div>
 @endsection

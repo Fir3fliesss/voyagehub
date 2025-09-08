@@ -151,6 +151,10 @@
 
         .content-area { padding: 1.5rem; flex: 1; }
 
+        .alert-container {
+            padding: 1.5rem;
+        }
+
         /* Cards */
         .stats-grid {
             display: grid;
@@ -399,17 +403,29 @@
         @include('layouts.sidebar')
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <main class="main-content">
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+            <div class="alert-container">
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
             @yield('content')
         </main>
     </div>

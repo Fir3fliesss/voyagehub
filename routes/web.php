@@ -34,17 +34,22 @@ Route::middleware(['auth'])->group(function () {
 
 // routes/web.php
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-    // User Management
-    Route::resource('/users', App\Http\Controllers\Admin\UserController::class);
+    // User Management Routes
+    Route::get('/users', [AdminController::class, 'users'])->name('admin.users.index');
+    Route::get('/users/create', [AdminController::class, 'createUser'])->name('admin.users.create');
+    Route::post('/users', [AdminController::class, 'storeUser'])->name('admin.users.store');
+    Route::get('/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
+    Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+    Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
+
+    // Trip Management Routes
+    Route::get('/trips', [AdminController::class, 'trips'])->name('admin.trips.index');
 
     // Trip Management
-    Route::resource('/journeys', JourneyController::class);
+
 
     // Report
     // Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports');
 });
-
-
-Route::resource('users', UserController::class);
