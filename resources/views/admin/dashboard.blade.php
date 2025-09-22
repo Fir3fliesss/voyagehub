@@ -31,8 +31,6 @@
                 <div class="stat-value">Rp{{ number_format($totalExpenses, 2, ',', '.') }}</div>
             </div>
 
-
-
             {{-- <div class="stat-card">
                 <div class="stat-header">
                     <span class="stat-title">Countries Visited</span>

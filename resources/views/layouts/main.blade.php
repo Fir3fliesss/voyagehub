@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>VoyageHub @hasSection('title') - @yield('title') @endif</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
     <style>
@@ -314,6 +315,115 @@
             color: var(--foreground);
             cursor: pointer;
         }
+
+        /* ====== Card generic (reusable, selaras activity-section) ====== */
+.card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.card-header{
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  background: #f8fafc;
+}
+.card-body{ padding: 1rem 1.25rem; }
+
+/* ====== Helpers spacing (kompatibel dengan kelas lama) ====== */
+.mb-4{ margin-bottom: 1rem; }
+.py-3{ padding-top:.75rem; padding-bottom:.75rem; }
+.m-0{ margin:0; }
+.font-weight-bold{ font-weight: 700; }
+.text-primary{ color: var(--primary); }
+
+/* ====== Form (sinkron dengan form styles yg sdh ada) ====== */
+.form-row{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .75rem;
+}
+.align-items-end{ align-items: end; }
+.col-md-3, .col-md-4, .col-md-5{ width:100%; }
+.mb-3{ margin-bottom: .75rem; }
+.form-control{
+  width:100%;
+  padding: 0.65rem 0.9rem;
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--input);
+  color: var(--foreground);
+  transition: all .2s ease;
+}
+.form-control:focus{
+  outline:none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(5,150,105,.1);
+}
+
+/* grid responsif utk filter bar */
+@media (min-width: 768px){
+  .form-row{
+    grid-template-columns: 1fr 1.6fr .9fr;
+  }
+}
+
+/* ====== Tabel (reusable) ====== */
+.table-responsive{
+  width: 100%;
+  overflow:auto;
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+}
+.table{
+  width:100%;
+  border-collapse: separate; border-spacing: 0;
+  min-width: 640px;
+}
+.table thead tr{ background: #f1f5f9; }
+.table th, .table td{
+  padding: .75rem .9rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.table th{
+  font-size: .78rem;
+  letter-spacing:.04em;
+  text-transform: uppercase;
+  color: #475569;
+  font-weight: 700;
+}
+.table tbody tr:hover{ background: #f8fafc; }
+.table.table-bordered th, .table.table-bordered td{ border-right:1px solid var(--border); }
+.table.table-bordered tr th:last-child,
+.table.table-bordered tr td:last-child{ border-right:0; }
+
+/* jarak pagination dari tabel */
+.table-responsive + *{ margin-top: .9rem; }
+
+/* ====== Header dashboard (rapi) ====== */
+.main-header{
+  background: var(--card);
+}
+.page-title{
+  letter-spacing: .2px;
+}
+.mobile-menu-toggle{
+  height:40px; width:40px; border-radius: .6rem;
+  border: 1px solid var(--border); background: #fff; cursor: pointer;
+}
+.mobile-menu-toggle:hover{ background:#f1f5f9; }
+
+/* ====== Stats card hover ringan ====== */
+.stat-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+.stat-title{ color: var(--muted-foreground); font-weight: 600; }
+.stat-icon{ display:flex; align-items:center; justify-content:center; }
+.stat-value{ font-weight: 700; }
 
         /* Responsive Design */
         @media (max-width: 768px) {
