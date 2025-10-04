@@ -16,11 +16,29 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+<<<<<<< HEAD
+=======
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+>>>>>>> 4b0d94f (feat: implement travel request management system)
     ];
 
     public function journeys()
     {
         return $this->hasMany(Journey::class);
+    }
+
+    public function travelRequests()
+    {
+        return $this->hasMany(TravelRequest::class);
     }
 
     /**

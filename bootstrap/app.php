@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'is_admin' => \App\Http\Middleware\IsAdmin::class,
         ]);
+
+        // Configure guest redirect to signin route
+        $middleware->redirectGuestsTo('/signin');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

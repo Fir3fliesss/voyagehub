@@ -501,6 +501,39 @@
                 display: block;
             }
         }
+
+        /* Alert Styles */
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+
+        .alert-success {
+            background-color: #d1fae5;
+            border-color: #a7f3d0;
+            color: #065f46;
+        }
+
+        .alert-warning {
+            background-color: #fef3c7;
+            border-color: #fde68a;
+            color: #92400e;
+        }
+
+        .alert-error {
+            background-color: #fee2e2;
+            border-color: #fecaca;
+            color: #b91c1c;
+        }
+
+        .alert-info {
+            background-color: #dbeafe;
+            border-color: #bfdbfe;
+            color: #1e40af;
+        }
     </style>
     @stack('styles')
 </head>
@@ -509,17 +542,42 @@
         @include('layouts.sidebar')
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <main class="main-content">
+<<<<<<< HEAD
+=======
+            {{-- Alert Messages --}}
+>>>>>>> 4b0d94f (feat: implement travel request management system)
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
 
+<<<<<<< HEAD
             @if(session('error'))
                 <div class="alert alert-danger">
                     {{ session('error') }}
                 </div>
             @endif
+=======
+            @if(session('warning'))
+                <div class="alert alert-warning">
+                    {{ session('warning') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-error">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if(session('info'))
+                <div class="alert alert-info">
+                    {{ session('info') }}
+                </div>
+            @endif
+
+>>>>>>> 4b0d94f (feat: implement travel request management system)
             @yield('content')
         </main>
     </div>

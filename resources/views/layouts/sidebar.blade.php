@@ -111,6 +111,7 @@
                 @endif
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
                 @if(Auth::user()->role == 'user')
                     <a href="/new-trip" class="nav-link {{ request()->is('new-trip') ? 'active' : '' }}" data-page="add-data">
                         <span class="nav-icon">➕</span>Add Data
@@ -131,16 +132,38 @@
                 <a class="nav-link" href="#">
                     <span class="nav-icon">➡️</span>
                     Logout
+=======
+                <a href="/new-trip" class="nav-link {{ request()->is('new-trip') ? 'active' : '' }}" data-page="add-data">
+                    <span class="nav-icon">➕</span>Add Trip
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('travel-requests.index') }}" class="nav-link {{ request()->routeIs('travel-requests.*') ? 'active' : '' }}">
+                    <span class="nav-icon">✈️</span>Travel Requests
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('notifications.index') }}" class="nav-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}">
+                    <span class="nav-icon">🔔</span>Notifications
+                    @if(Auth::user()->unreadNotifications->count() > 0)
+                        <span class="badge bg-danger ms-2">{{ Auth::user()->unreadNotifications->count() }}</span>
+                    @endif
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                    <span class="nav-icon">👤</span>My Profile
+>>>>>>> 4b0d94f (feat: implement travel request management system)
                 </a>
             </li>
         </ul>
     </nav>
         <div class="sidebar-footer">
-        <a href="/settings" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">
-            <div class="user-avatar">👤</div>
+        <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
+            <div class="user-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 2)) }}</div>
             <div class="user-details">
                 <h4>{{ Auth::user()->name }}</h4>
-                <p>NIK: {{ Auth::user()->nik }}</p>
+                <p>{{ ucfirst(Auth::user()->role) }} • NIK: {{ Auth::user()->nik }}</p>
             </div>
         </a>
     </div>

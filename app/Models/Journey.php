@@ -11,6 +11,7 @@ class Journey extends Model
 
     protected $fillable = [
         'user_id',
+        'travel_request_id',
         'title',
         'destination',
         'start_date',
@@ -21,8 +22,19 @@ class Journey extends Model
         'notes',
     ];
 
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+        'budget' => 'decimal:0',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function travelRequest()
+    {
+        return $this->belongsTo(TravelRequest::class);
     }
 }

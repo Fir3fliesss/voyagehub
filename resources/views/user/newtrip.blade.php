@@ -47,7 +47,7 @@
             display: block;
             margin-bottom: 6px;
         }
-        input, textarea {
+        input, textarea, select {
             width: 100%;
             padding: 10px 12px;
             border: 1px solid #d1d5db;
@@ -55,7 +55,7 @@
             font-size: 14px;
             transition: all 0.2s;
         }
-        input:focus, textarea:focus {
+        input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: #059669;
             box-shadow: 0 0 0 2px rgba(5,150,105,0.2);
@@ -165,29 +165,54 @@
 
                     {{-- Basic Information --}}
                     <div class="form-section">
-                        <h3>Basic Information</h3>
-                        <p>Essential details about your trip</p>
+                        <h3>Travel Request</h3>
+                        <p>Pilih travel request yang sudah disetujui untuk dibuat tripnya</p>
+                    </div>
+
+                    <div>
+                        <label for="travel_request_id">Pilih Travel Request yang Disetujui <span style="color:red">*</span></label>
+                        <select id="travel_request_id" name="travel_request_id" required>
+                            <option value="">-- Pilih Travel Request --</option>
+                            @foreach($approvedRequests as $request)
+                                <option value="{{ $request->id }}"
+                                        data-purpose="{{ $request->purpose }}"
+                                        data-destination="{{ $request->destination }}"
+                                        data-start-date="{{ $request->start_date->format('Y-m-d') }}"
+                                        data-end-date="{{ $request->end_date->format('Y-m-d') }}"
+                                        data-budget="{{ $request->budget }}"
+                                        {{ old('travel_request_id') == $request->id ? 'selected' : '' }}>
+                                    {{ $request->purpose }} - {{ $request->destination }}
+                                    ({{ $request->start_date->format('d M Y') }} - {{ $request->end_date->format('d M Y') }})
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    {{-- Trip Details (Auto-filled from selected travel request) --}}
+                    <div class="form-section">
+                        <h3>Detail Trip</h3>
+                        <p>Informasi ini otomatis terisi dari travel request yang dipilih</p>
                     </div>
 
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
                         <div>
-                            <label for="title">Trip Title <span style="color:red">*</span></label>
-                            <input type="text" id="title" name="title" value="{{ old('title') }}" required>
+                            <label for="display_purpose">Judul Trip</label>
+                            <input type="text" id="display_purpose" readonly style="background-color: #f9fafb; color: #6b7280;" placeholder="Akan otomatis terisi">
                         </div>
 
                         <div>
-                            <label for="destination">Destination <span style="color:red">*</span></label>
-                            <input type="text" id="destination" name="destination" value="{{ old('destination') }}" required>
+                            <label for="display_destination">Destination</label>
+                            <input type="text" id="display_destination" readonly style="background-color: #f9fafb; color: #6b7280;" placeholder="Akan otomatis terisi">
                         </div>
 
                         <div>
-                            <label for="start_date">Start Date <span style="color:red">*</span></label>
-                            <input type="date" id="start_date" name="start_date" value="{{ old('start_date') }}" required>
+                            <label for="display_start_date">Start Date</label>
+                            <input type="date" id="display_start_date" readonly style="background-color: #f9fafb; color: #6b7280;">
                         </div>
 
                         <div>
-                            <label for="end_date">End Date</label>
-                            <input type="date" id="end_date" name="end_date" value="{{ old('end_date') }}">
+                            <label for="display_end_date">End Date</label>
+                            <input type="date" id="display_end_date" readonly style="background-color: #f9fafb; color: #6b7280;">
                         </div>
                     </div>
 
@@ -210,7 +235,7 @@
 
                         <div style="grid-column:1/3;">
                             <label for="budget">Budget (IDR)</label>
-                            <input type="number" id="budget" name="budget" value="{{ old('budget') }}" step="0.01">
+                            <input type="number" id="budget" name="budget" value="{{ old('budget') }}" step="0.01" placeholder="Kosongkan jika menggunakan budget dari travel request">
                         </div>
                     </div>
 
@@ -233,4 +258,41 @@
             </div>
         </div>
     </div>
+
+    <script>
+    // Auto-fill form berdasarkan travel request yang dipilih
+    document.getElementById('travel_request_id').addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+
+        if (selectedOption.value) {
+            // Isi field display yang readonly
+            document.getElementById('display_purpose').value = selectedOption.getAttribute('data-purpose');
+            document.getElementById('display_destination').value = selectedOption.getAttribute('data-destination');
+            document.getElementById('display_start_date').value = selectedOption.getAttribute('data-start-date');
+            document.getElementById('display_end_date').value = selectedOption.getAttribute('data-end-date');
+
+            // Set placeholder untuk budget jika kosong
+            const budgetField = document.getElementById('budget');
+            if (!budgetField.value) {
+                const requestBudget = selectedOption.getAttribute('data-budget');
+                budgetField.placeholder = `Default: Rp ${Number(requestBudget).toLocaleString('id-ID')}`;
+            }
+        } else {
+            // Clear semua field jika tidak ada yang dipilih
+            document.getElementById('display_purpose').value = '';
+            document.getElementById('display_destination').value = '';
+            document.getElementById('display_start_date').value = '';
+            document.getElementById('display_end_date').value = '';
+            document.getElementById('budget').placeholder = 'Kosongkan jika menggunakan budget dari travel request';
+        }
+    });
+
+    // Trigger change event jika ada nilai yang sudah terpilih (untuk old input)
+    window.addEventListener('load', function() {
+        const travelRequestSelect = document.getElementById('travel_request_id');
+        if (travelRequestSelect.value) {
+            travelRequestSelect.dispatchEvent(new Event('change'));
+        }
+    });
+    </script>
 @endsection
